@@ -1,0 +1,39 @@
+spring:
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+  profiles:
+    active: llama3
+  threads:
+    virtual:
+      enabled: true
+---
+spring:
+  ai:
+    ollama:
+      chat:
+        options:
+          model: llama3
+  config:
+    activate:
+      on-profile: llama3
+---
+spring:
+  ai:
+    ollama:
+      chat:
+        options:
+          model: mistral
+  config:
+    activate:
+      on-profile: mistral
+---
+spring:
+  ai:
+    openai:
+      chat:
+        options:
+          model: gpt-4o
+  config:
+    activate:
+      on-profile: gpt-4o
