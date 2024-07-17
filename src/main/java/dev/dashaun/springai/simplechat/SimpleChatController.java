@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class SimpleChatController {
+class SimpleChatController {
 
     private final ChatClient chatClient;
 
@@ -17,12 +17,22 @@ public class SimpleChatController {
     }
 
     @GetMapping("/simpleChat")
-    public String simpleChat(@RequestParam(defaultValue = "Can you please tell me a joke?") String question) throws Exception {
+    String simpleChat(@RequestParam(defaultValue = "Can you please tell me a joke?") String question) throws Exception {
         return chatClient.prompt()
                 .user(userSpec -> userSpec
                         .text(question)
                 )
                 .call()
                 .content();
+    }
+
+    @GetMapping("/jokeStructured")
+    StructuredResponse jokeStructured(@RequestParam(defaultValue = "Can you please tell me a joke?") String question) throws Exception {
+        return chatClient.prompt()
+                .user(userSpec -> userSpec
+                        .text(question)
+                )
+                .call()
+                .entity(StructuredResponse.class);
     }
 }
